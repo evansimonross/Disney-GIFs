@@ -1,12 +1,69 @@
+//Three default sets of movies and the current topics displayed initialized as arrays of strings
 var animalMovies = ['lion king', 'aristocats', '101 dalmatians', 'fox and the hound', 'lady and the tramp', 'dumbo', 'bambi', 'jungle book', 'robin hood', 'finding nemo', 'ratatouille', 'princess and the frog', 'zootopia'];
 var princessMovies = ['beauty and the beast', 'snow white', 'cinderella', 'pochahontas', 'mulan', 'princess and the frog', 'little mermaid', 'sleeping beauty', 'tangled', 'aladdin', 'brave', 'frozen'];
 var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo and stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e'];
 var topics = [];
 
+//Chooses 5 random movies each from the three default sets and displays them.
+function randomTopics(){
+    topics = [];
+    for (var i = 0; i < 15; i++) {
+        if (i % 3 === 0) {
+            var movie = animalMovies[Math.floor(Math.random() * animalMovies.length)];
+            if (topics.indexOf(movie) === -1) {
+                topics.push(movie);
+            }
+            else {
+                i--;
+            }
+        }
+        else if (i % 3 === 1) {
+            var movie = princessMovies[Math.floor(Math.random() * princessMovies.length)];
+            if (topics.indexOf(movie) === -1) {
+                topics.push(movie);
+            }
+            else {
+                i--;
+            }
+        }
+        else {
+            var movie = otherMovies[Math.floor(Math.random() * otherMovies.length)];
+            if (topics.indexOf(movie) === -1) {
+                topics.push(movie);
+            }
+            else {
+                i--;
+            }
+        }
+    }
+    displayTopics();
+}
+
+// Copies one default set into the topics and displays them.
+function animalTopics(){
+    topics = animalMovies.slice(0);
+    displayTopics();
+}
+
+function princessTopics(){
+    topics = princessMovies.slice(0);
+    displayTopics();
+}
+
+function otherTopics(){
+    topics = otherMovies.slice(0);
+    displayTopics();
+}
+
 function displayTopics(){
+    $('#buttons').empty();
     topics.forEach(function(movie){
         $('#buttons').append($('<button type="button" class="topicButton btn btn-info btn-sm">' + movie + '</button>'))
     });
+}
+
+function addTopic(){
+    
 }
 
 $(document).on('click','.topicButton',function(){
@@ -42,34 +99,5 @@ $(document).on('click','.gif',function(){
 });
 
 $(document).ready(function () {
-    for (var i = 0; i < 12; i++) {
-        if (i % 3 === 0) {
-            var movie = animalMovies[Math.floor(Math.random() * animalMovies.length)];
-            if (topics.indexOf(movie) === -1) {
-                topics.push(movie);
-            }
-            else {
-                i--;
-            }
-        }
-        else if (i % 3 === 1) {
-            var movie = princessMovies[Math.floor(Math.random() * princessMovies.length)];
-            if (topics.indexOf(movie) === -1) {
-                topics.push(movie);
-            }
-            else {
-                i--;
-            }
-        }
-        else {
-            var movie = otherMovies[Math.floor(Math.random() * otherMovies.length)];
-            if (topics.indexOf(movie) === -1) {
-                topics.push(movie);
-            }
-            else {
-                i--;
-            }
-        }
-    }
-    displayTopics();
+    randomTopics();
 });
