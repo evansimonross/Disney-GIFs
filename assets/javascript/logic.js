@@ -22,10 +22,23 @@ $(document).on('click','.topicButton',function(){
             var animatedUrl = response.data[i].images.fixed_height.url;
             var rating = response.data[i].rating;
             var image = $('<img class="gif" src="' + stillUrl + '" data-still="' + stillUrl + '" data-animated="' + animatedUrl + '">');
-            $('#gifs').prepend(image);
+            var div = $('<div>');
+            div.addClass('imageDiv');
+            div.append(image);
+            div.append('<p>Rated ' + rating.toUpperCase() + '</p>');
+            $('#gifs').prepend(div);
         }
         
     });
+});
+
+$(document).on('click','.gif',function(){
+    if($(this).attr('src')===$(this).attr('data-still')){
+        $(this).attr('src',$(this).attr('data-animated'));
+    }
+    else{
+        $(this).attr('src',$(this).attr('data-still'));
+    }
 });
 
 $(document).ready(function () {

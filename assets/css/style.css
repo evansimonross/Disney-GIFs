@@ -5,3 +5,11 @@
 .gif{
     margin: 10px;
 }
+
+.imageDiv{
+    float: left;
+}
+
+p{
+    text-align: center;
+}
