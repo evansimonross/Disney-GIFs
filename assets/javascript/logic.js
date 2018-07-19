@@ -1,7 +1,7 @@
 //Three default sets of movies and the current topics displayed initialized as arrays of strings
 var animalMovies = ['lion king', 'aristocats', '101 dalmatians', 'fox and the hound', 'lady and the tramp', 'dumbo', 'bambi', 'jungle book', 'robin hood', 'finding nemo', 'ratatouille', 'princess and the frog', 'zootopia'];
 var princessMovies = ['beauty and the beast', 'snow white', 'cinderella', 'pochahontas', 'mulan', 'princess and the frog', 'little mermaid', 'sleeping beauty', 'tangled', 'aladdin', 'brave', 'frozen'];
-var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo and stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e'];
+var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo and stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e', 'pinocchio'];
 var topics = [];
 
 //Chooses 5 random movies each from the three default sets and displays them.
@@ -63,7 +63,8 @@ function displayTopics(){
 }
 
 function addTopic(){
-    
+    topics.push($('input').val());
+    displayTopics();
 }
 
 $(document).on('click','.topicButton',function(){
@@ -74,7 +75,7 @@ $(document).on('click','.topicButton',function(){
         method: "GET"
     }).then(function(response){
         for(var i=0;i<10;i++){
-            console.log(response.data[i]);
+            //console.log(response.data[i]);
             var stillUrl = response.data[i].images.fixed_height_still.url;
             var animatedUrl = response.data[i].images.fixed_height.url;
             var rating = response.data[i].rating;
