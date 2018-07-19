@@ -10,7 +10,22 @@ function displayTopics(){
 }
 
 $(document).on('click','.topicButton',function(){
-    alert("CLICK");
+
+    var queryUrl = "https://api.giphy.com/v1/gifs/search?apikey=MIGbFlFU7iE630je8nt9rZuN7qkxVLCq&q=" + $(this).text() + " disney&limit=10&offset=0&rating=R&lang=en";
+    $.ajax({
+        url: queryUrl,
+        method: "GET"
+    }).then(function(response){
+        for(var i=0;i<10;i++){
+            console.log(response.data[i]);
+            var stillUrl = response.data[i].images.fixed_height_still.url;
+            var animatedUrl = response.data[i].images.fixed_height.url;
+            var rating = response.data[i].rating;
+            var image = $('<img class="gif" src="' + stillUrl + '" data-still="' + stillUrl + '" data-animated="' + animatedUrl + '">');
+            $('#gifs').prepend(image);
+        }
+        
+    });
 });
 
 $(document).ready(function () {
