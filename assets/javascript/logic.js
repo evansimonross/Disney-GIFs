@@ -78,8 +78,6 @@ function clearGIFs() {
 function favoriteGIFs() {
     favorites.forEach(function(element){
         var div = addGIF(element.still, element.animated, element.rating);
-        var favoriteIcon = $($($(div[0]).children()[1]).children()[1]);
-        favoriteIcon.css('color','hotpink');
     });
 }
 
@@ -90,14 +88,18 @@ function addGIF(stillUrl, animatedUrl, rating) {
     div.append(image);
     div.append('<p>Rated <b>' + rating + '</b>&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;<a href = "' + animatedUrl + '" target="_blank"><span class="fa fa-download"></span></a></p>');
     $('#gifs').prepend(div);
+    if(indexOfFavorite(stillUrl)!=-1){
+        $($(div.children()[1]).children()[1]).css('color','hotpink');
+    }
     return div;
 }
 
-function hasFavorite(stillUrl){
+function indexOfFavorite(stillUrl){
     for(var i=0; i<favorites.length; i++){
-        if(favorites[i].still === stillUrl) { return true; }
+        favStill = favorites[i].still;
+        if(favStill.substring(15) === stillUrl.substring(15)) { return i; }
     }
-    return false;
+    return -1;
 }
 
 $(document).on('click', '.topicButton', function () {
@@ -131,12 +133,16 @@ $(document).on('click', '.fa-star', function (event) {
     //event.preventDefault();
     var image = $($(this).parent().parent()[0]).children()[0];
     var favData = { still: $(image).attr('data-still'), animated: $(image).attr('data-animated'), rating: $(image).attr('data-rating')};
-    if(hasFavorite(favData.still)) {}
-    else{
+    var index = indexOfFavorite(favData.still);
+    if(index===-1){
         favorites.push(favData);
+        $(this).css('color', 'hotpink');
+    }
+    else{
+        favorites.splice(index,1);
+        $(this).css('color', 'black');
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    $(this).css('color', 'hotpink');
 });
 
 $(document).on('click', '.fa-download', function(event){
