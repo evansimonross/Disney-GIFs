@@ -4,6 +4,10 @@ var princessMovies = ['beauty and the beast', 'snow white', 'cinderella', 'pocha
 var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo and stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e', 'pinocchio'];
 var topics = [];
 var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+var repeatClicks = {
+    lastButton: "",
+    offset: 0
+};
 
 //Chooses 5 random movies each from the three default sets and displays them.
 function randomTopics() {
@@ -103,8 +107,15 @@ function indexOfFavorite(stillUrl){
 }
 
 $(document).on('click', '.topicButton', function () {
+    if(repeatClicks.lastButton === $(this).text()){
+        repeatClicks.offset += 10;
+    }
+    else{
+        repeatClicks.lastButton = $(this).text();
+        repeatClicks.offset = 0;
+    }
 
-    var queryUrl = "https://api.giphy.com/v1/gifs/search?apikey=MIGbFlFU7iE630je8nt9rZuN7qkxVLCq&q=" + $(this).text() + " disney&limit=10&offset=0&rating=R&lang=en";
+    var queryUrl = "https://api.giphy.com/v1/gifs/search?apikey=MIGbFlFU7iE630je8nt9rZuN7qkxVLCq&q=" + $(this).text() + " disney&limit=10&offset=" + repeatClicks.offset + "&rating=R&lang=en";
     $.ajax({
         url: queryUrl,
         method: "GET"
@@ -116,7 +127,6 @@ $(document).on('click', '.topicButton', function () {
             var rating = response.data[i].rating.toUpperCase();
             addGIF(stillUrl, animatedUrl, rating);
         }
-
     });
 });
 
