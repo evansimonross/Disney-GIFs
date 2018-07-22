@@ -77,6 +77,7 @@ function addTopic() {
 
 function clearGIFs() {
     $('#gifs').empty();
+    $('#currentMovie').empty();
 }
 
 function favoriteGIFs() {
@@ -111,8 +112,20 @@ $(document).on('click', '.topicButton', function () {
         repeatClicks.offset += 10;
     }
     else{
+        $('#currentMovie').empty();
         repeatClicks.lastButton = $(this).text();
         repeatClicks.offset = 0;
+        var movieQuery = "http://www.omdbapi.com/?apikey=trilogy&t=" + $(this).text();
+        $.ajax({
+            url: movieQuery,
+            method: "GET"
+        }).then(function (response){
+            $('#currentMovie').append('<h3>Current Movie</h3>');
+            $('#currentMovie').append('<img src="' + response.Poster + '">');
+            $('#currentMovie').append('<h5>' + response.Title + ' (' + response.Year + ')</h5>');
+            $('#currentMovie').append('<p>' + response.Plot + '</p>');
+        });
+
     }
 
     var queryUrl = "https://api.giphy.com/v1/gifs/search?apikey=MIGbFlFU7iE630je8nt9rZuN7qkxVLCq&q=" + $(this).text() + " disney&limit=10&offset=" + repeatClicks.offset + "&rating=R&lang=en";
