@@ -115,7 +115,7 @@ $(document).on('click', '.topicButton', function () {
         $('#currentMovie').empty();
         repeatClicks.lastButton = $(this).text();
         repeatClicks.offset = 0;
-        var movieQuery = "http://www.omdbapi.com/?apikey=trilogy&t=" + $(this).text();
+        var movieQuery = "https://www.omdbapi.com/?apikey=trilogy&t=" + $(this).text();
         $.ajax({
             url: movieQuery,
             method: "GET"
