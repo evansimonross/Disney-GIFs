@@ -18,6 +18,12 @@
     color: hotpink;
 }
 
+.moviePoster{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 p{
     text-align: center;
 }

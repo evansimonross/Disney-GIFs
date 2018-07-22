@@ -121,7 +121,7 @@ $(document).on('click', '.topicButton', function () {
             method: "GET"
         }).then(function (response){
             $('#currentMovie').append('<h3>Current Movie</h3>');
-            $('#currentMovie').append('<img src="' + response.Poster + '">');
+            $('#currentMovie').append('<img class="moviePoster" src="' + response.Poster + '">');
             $('#currentMovie').append('<h5>' + response.Title + ' (' + response.Year + ')</h5>');
             $('#currentMovie').append('<p>' + response.Plot + '</p>');
         });
