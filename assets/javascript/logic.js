@@ -3,9 +3,10 @@ var animalMovies = ['lion king', 'aristocats', '101 dalmatians', 'fox and the ho
 var princessMovies = ['beauty and the beast', 'snow white', 'cinderella', 'pochahontas', 'mulan', 'princess and the frog', 'little mermaid', 'sleeping beauty', 'tangled', 'aladdin', 'brave', 'frozen'];
 var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo and stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e', 'pinocchio'];
 var topics = [];
+var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 //Chooses 5 random movies each from the three default sets and displays them.
-function randomTopics(){
+function randomTopics() {
     topics = [];
     for (var i = 0; i < 15; i++) {
         if (i % 3 === 0) {
@@ -40,65 +41,104 @@ function randomTopics(){
 }
 
 // Copies one default set into the topics and displays them.
-function animalTopics(){
+function animalTopics() {
     topics = animalMovies.slice(0);
     displayTopics();
 }
 
-function princessTopics(){
+function princessTopics() {
     topics = princessMovies.slice(0);
     displayTopics();
 }
 
-function otherTopics(){
+function otherTopics() {
     topics = otherMovies.slice(0);
     displayTopics();
 }
 
-function displayTopics(){
+function displayTopics() {
     $('#buttons').empty();
     $('#buttons').append('<h3>Disney Movies</h3>');
-    topics.forEach(function(movie){
+    topics.forEach(function (movie) {
         $('#buttons').append($('<button type="button" class="topicButton btn btn-info btn-sm">' + movie + '</button>'))
     });
 }
 
-function addTopic(){
+function addTopic() {
+    if ($('input').val() === "") { return; }
     topics.push($('input').val().toLowerCase());
     $('input').val("");
     displayTopics();
 }
 
-$(document).on('click','.topicButton',function(){
+function clearGIFs() {
+    $('#gifs').empty();
+}
+
+function favoriteGIFs() {
+    favorites.forEach(function(element){
+        addGIF(element.still, element.animated, element.rating);
+    });
+}
+
+function addGIF(stillUrl, animatedUrl, rating) {
+    var image = $('<img class="gif" src="' + stillUrl + '" data-still="' + stillUrl + '" data-animated="' + animatedUrl + '" data-rating="' + rating + '">');
+    var div = $('<div>');
+    div.addClass('imageDiv');
+    div.append(image);
+    div.append('<p>Rated <b>' + rating + '</b>&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;<a href = "' + animatedUrl + '" target="_blank"><span class="fa fa-download"></span></a></p>');
+    $('#gifs').prepend(div);
+}
+
+function hasFavorite(stillUrl){
+    for(var i=0; i<favorites.length; i++){
+        if(favorites[i].still === stillUrl) { return true; }
+    }
+    return false;
+}
+
+$(document).on('click', '.topicButton', function () {
 
     var queryUrl = "https://api.giphy.com/v1/gifs/search?apikey=MIGbFlFU7iE630je8nt9rZuN7qkxVLCq&q=" + $(this).text() + " disney&limit=10&offset=0&rating=R&lang=en";
     $.ajax({
         url: queryUrl,
         method: "GET"
-    }).then(function(response){
-        for(var i=0;i<10;i++){
+    }).then(function (response) {
+        for (var i = 0; i < 10; i++) {
             //console.log(response.data[i]);
             var stillUrl = response.data[i].images.fixed_height_still.url;
             var animatedUrl = response.data[i].images.fixed_height.url;
-            var rating = response.data[i].rating;
-            var image = $('<img class="gif" src="' + stillUrl + '" data-still="' + stillUrl + '" data-animated="' + animatedUrl + '">');
-            var div = $('<div>');
-            div.addClass('imageDiv');
-            div.append(image);
-            div.append('<p>Rated ' + rating.toUpperCase() + '</p>');
-            $('#gifs').prepend(div);
+            var rating = response.data[i].rating.toUpperCase();
+            addGIF(stillUrl, animatedUrl, rating);
         }
-        
+
     });
 });
 
-$(document).on('click','.gif',function(){
-    if($(this).attr('src')===$(this).attr('data-still')){
-        $(this).attr('src',$(this).attr('data-animated'));
+$(document).on('click', '.gif', function () {
+    if ($(this).attr('src') === $(this).attr('data-still')) {
+        $(this).attr('src', $(this).attr('data-animated'));
     }
+    else {
+        $(this).attr('src', $(this).attr('data-still'));
+    }
+});
+
+$(document).on('click', '.fa-star', function (event) {
+    //event.preventDefault();
+    var image = $($(this).parent().parent()[0]).children()[0];
+    var favData = { still: $(image).attr('data-still'), animated: $(image).attr('data-animated'), rating: $(image).attr('data-rating')};
+    if(hasFavorite(favData.still)) {}
     else{
-        $(this).attr('src',$(this).attr('data-still'));
+        favorites.push(favData);
     }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    $(this).css('color', 'hotpink');
+});
+
+$(document).on('click', '.fa-download', function(event){
+    //event.preventDefault();
+    var image = $($(this).parent().parent()[0]).children()[0];
 });
 
 $(document).ready(function () {
