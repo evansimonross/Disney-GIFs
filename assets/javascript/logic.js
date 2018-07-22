@@ -57,13 +57,15 @@ function otherTopics(){
 
 function displayTopics(){
     $('#buttons').empty();
+    $('#buttons').append('<h3>Disney Movies</h3>');
     topics.forEach(function(movie){
         $('#buttons').append($('<button type="button" class="topicButton btn btn-info btn-sm">' + movie + '</button>'))
     });
 }
 
 function addTopic(){
-    topics.push($('input').val());
+    topics.push($('input').val().toLowerCase());
+    $('input').val("");
     displayTopics();
 }
 
