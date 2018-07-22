@@ -77,7 +77,9 @@ function clearGIFs() {
 
 function favoriteGIFs() {
     favorites.forEach(function(element){
-        addGIF(element.still, element.animated, element.rating);
+        var div = addGIF(element.still, element.animated, element.rating);
+        var favoriteIcon = $($($(div[0]).children()[1]).children()[1]);
+        favoriteIcon.css('color','hotpink');
     });
 }
 
@@ -88,6 +90,7 @@ function addGIF(stillUrl, animatedUrl, rating) {
     div.append(image);
     div.append('<p>Rated <b>' + rating + '</b>&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;<a href = "' + animatedUrl + '" target="_blank"><span class="fa fa-download"></span></a></p>');
     $('#gifs').prepend(div);
+    return div;
 }
 
 function hasFavorite(stillUrl){
