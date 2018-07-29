@@ -1,7 +1,7 @@
 //Three default sets of movies and the current topics displayed initialized as arrays of strings
-var animalMovies = ['lion king', 'aristocats', '101 dalmatians', 'fox and the hound', 'lady and the tramp', 'dumbo', 'bambi', 'jungle book', 'robin hood', 'finding nemo', 'ratatouille', 'princess and the frog', 'zootopia'];
-var princessMovies = ['beauty and the beast', 'snow white', 'cinderella', 'pochahontas', 'mulan', 'princess and the frog', 'little mermaid', 'sleeping beauty', 'tangled', 'aladdin', 'brave', 'frozen'];
-var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo and stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e', 'pinocchio'];
+var animalMovies = ['lion king', 'aristocats', '101 dalmatians', 'fox and the hound', 'lady and the tramp', 'dumbo', 'bambi', 'the jungle book', 'robin hood', 'finding nemo', 'ratatouille', 'princess and the frog', 'zootopia'];
+var princessMovies = ['beauty and the beast', 'snow white', 'cinderella', 'pocahontas', 'mulan', 'princess and the frog', 'the little mermaid', 'sleeping beauty', 'tangled', 'aladdin', 'brave', 'frozen'];
+var otherMovies = ['tarzan', 'up', 'peter pan', 'inside out', 'treasure planet', 'atlantis', 'monsters inc', 'lilo & stitch', 'hercules', 'alice in wonderland', 'toy story', 'wall-e', 'pinocchio'];
 var topics = [];
 var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 var repeatClicks = {
@@ -62,7 +62,7 @@ function otherTopics() {
 
 function displayTopics() {
     $('#buttons').empty();
-    $('#buttons').append('<h3>Disney Movies</h3>');
+    $('#buttons').append('<h3> <span><img id="logo" src="assets/images/disney-logo.png"> </span> Movies</h3>');
     topics.forEach(function (movie) {
         $('#buttons').append($('<button type="button" class="topicButton btn btn-info btn-sm">' + movie + '</button>'))
     });
@@ -77,6 +77,7 @@ function addTopic() {
 
 function clearGIFs() {
     $('#gifs').empty();
+    $('#gifs').append('<img src="assets/images/background.jpg" style="visibility: hidden; width: 50%">');
     $('#currentMovie').empty();
 }
 
@@ -91,7 +92,7 @@ function addGIF(stillUrl, animatedUrl, rating) {
     var div = $('<div>');
     div.addClass('imageDiv');
     div.append(image);
-    div.append('<p>Rated <b>' + rating + '</b>&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;<a href = "' + animatedUrl + '" target="_blank"><span class="fa fa-download"></span></a></p>');
+    div.append('<p class="rating">Rated <b>' + rating + '</b>&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;<a href = "' + animatedUrl + '" target="_blank"><span class="fa fa-download"></span></a></p>');
     $('#gifs').prepend(div);
     if(indexOfFavorite(stillUrl)!=-1){
         $($(div.children()[1]).children()[1]).css('color','hotpink');
