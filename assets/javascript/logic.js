@@ -164,7 +164,7 @@ $(document).on('click', '.fa-star', function (event) {
     }
     else{
         favorites.splice(index,1);
-        $(this).css('color', 'black');
+        $(this).css('color', 'lightgoldenrodyellow');
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
 });
