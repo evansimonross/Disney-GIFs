@@ -47,6 +47,8 @@ body{
     margin-right: auto;
     margin-left: auto;
     border: solid 1px #fff;
+    width: 100%;
+    max-width: 300px;
 }
 
 a{
