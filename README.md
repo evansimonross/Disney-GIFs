@@ -15,5 +15,11 @@ Under each GIF, the GIF's rating is displayed, and a download button. Cross-orig
 ## Project History
 This project was a homework assignment for the Columbia Full Stack Web Development Coding Bootcamp, testing our ability to use AJAX and API calls in Javascript. The project prompt was much more specific this time, and I have very closely followed their model: a dynamically created group of buttons which, when clicked, display 10 GIFs from GIPHY and the option for a user to submit their own button. I also included many of the bonus goals for the project provided including the favorites option and the use of an additional API. The theme was up to the students, and I chose Disney animated movies because I thought there would likely be lots of entertaining GIFs from them. 
 
-## Credits.
-This project was created by [Evan Simon Ross](http://evansimonross.github.io) and makes use of the [GIPHY](https://giphy.com/) and [OMDB](http://www.omdbapi.com/) APIs. The Disney theme is used without permission from the Disney corporation.
+## Credits
+This project was created by [Evan Simon Ross](http://evansimonross.github.io) and makes use of the [GIPHY](https://giphy.com/) and [OMDB](http://www.omdbapi.com/) APIs.
+
+Background image from Joe Penniston on [Flickr](https://www.flickr.com/photos/expressmonorail/2760562460/).
+
+Disney logo via [DIY Logo Designs](http://diylogodesigns.com/blog/disney-logo/).
+
+The Disney theme is used without permission from the Disney corporation.

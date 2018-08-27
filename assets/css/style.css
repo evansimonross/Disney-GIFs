@@ -1,3 +1,18 @@
+body{
+    background: 
+    linear-gradient(
+        rgba(0, 0, 0, 0.35),
+        rgba(0, 0, 0, 0.35)
+    ),
+
+    /* Background image from https://www.flickr.com/photos/expressmonorail/2760562460/ */
+    url(../images/background.jpg);
+    background-size: cover;
+    background-position: right;
+    color: #fff;
+    font-family: 'Josefin Sans', sans-serif;  
+}
+
 .topicButton{
     margin: 5px;
 }
@@ -8,20 +23,36 @@
 
 .gif{
     margin: 10px;
+    border: solid 1px lightgoldenrodyellow;
 }
 
 .imageDiv{
     float: left;
 }
 
+.fa{
+    color: lightgoldenrodyellow;
+}
+
 .fa:hover{
     color: hotpink;
+}
+
+.rating{
+    color: lightgoldenrodyellow;
 }
 
 .moviePoster{
     display: block;
     margin-right: auto;
     margin-left: auto;
+    border: solid 1px #fff;
+    width: 100%;
+    max-width: 300px;
+}
+
+a{
+    color: lightgoldenrodyellow;
 }
 
 p{
@@ -30,8 +61,21 @@ p{
 
 h3{
     text-align: center;
+    font-family: 'Oregano', cursive;
+    font-weight: 400;
 }
 
 h5{
     text-align: center;
+    font-family: 'Oregano', cursive;
+    font-weight: 400;
+    margin-top: 15px;
+}
+
+#logo{
+    width: 100px;
+    position: relative;
+    bottom: 3px;
+    filter: invert(100%);
+    border: none;
 }
