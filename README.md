@@ -2,6 +2,8 @@
 A project to practice API calls with GIPHY. 
 
 ## How To Use
+[Click here to try it out](https://evansimonross.github.io/Disney-GIFs/).
+
 When the page loads, a group of Disney movie titles is randomly generated at the top of the screen. Clicking a movie title will show 10 GIFs from GIPHY tagged with that title. Clicking the same title again will display 10 new GIFs. On the right of the page some information about the movie from OMBD is shown. 
 
 The user can toggle different lists of movie titles by choosing one of the supplied topic sets. They can also submit their own title which will immediately be added onto the end of the list. 
